@@ -7,12 +7,12 @@
    git clone https://github.com/Krish-Depani/Ride-Evee-Backend-Assignment.git
    ```
 2. Install the dependencies
-   ```node
+   ```bash
    npm install
    ```
 3. Run the server
-   ```node
-   node src/index.js
+   ```bash
+   node ./src/index.js
    ```
 4. The server will be running on port 3000
 
