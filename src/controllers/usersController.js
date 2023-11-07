@@ -9,7 +9,7 @@ const userValidationSchema = Joi.object({
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().select({ name: 1, email: 1 });
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -19,7 +19,7 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).select({ name: 1, email: 1 });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -57,7 +57,9 @@ const updateUser = async (req, res) => {
   }
 
   try {
-    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    const user = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    }).select({ name: 1, email: 1 });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -70,7 +72,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findByIdAndDelete(id);
+    const user = await User.findByIdAndDelete(id).select({ name: 1, email: 1 });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
